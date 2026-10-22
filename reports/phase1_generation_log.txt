@@ -1,0 +1,38 @@
+Generated synthetic data in /mnt/data/New-Skills/customer-payments-analytics/data/raw
+customers=1,001; invoices=5,000; payments=4,983
+Intentional data-quality issues are documented in data_quality_issues.csv.
+
+--- Data quality report run ---
+    table                       check  issue_count                                                                                      note
+customers  duplicate customer_id rows            2                Inspect duplicate rows; do not automatically discard if attributes differ.
+customers             missing segment            1        Keep missing values visible until a documented imputation/business rule is agreed.
+customers           region whitespace            1                  Whitespace can be normalized, but retain a record of the transformation.
+ invoices non-positive invoice_amount            1 Investigate; do not assume a negative value is valid or invalid without business context.
+ invoices  missing customer reference            0                                            Check referential integrity against customers.
+ payments non-positive payment_amount            0                                    Investigate refunds/adjustments separately if present.
+ payments    orphan invoice reference            1                                            Payment invoice_id does not exist in invoices.
+
+Wrote review copies and report to /mnt/data/New-Skills/customer-payments-analytics/data/processed
+These are review outputs, not fully certified clean data. Resolve flagged issues with documented rules.
+
+--- Test run ---
+Spreadsheet runtime warmup failed during python startup
+Traceback (most recent call last):
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 785, in warm_spreadsheet_runtime
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 718, in _warm_feature_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 509, in _warm_drawing_and_image_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/generated/interface/models.py", line 32861, in bring_to_front
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/remote.py", line 764, in __call__
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/client.py", line 175, in call
+artifact_tool.rpc.client.RemoteError: Element ordering requires an owning element collection.
+test_expected_scale (test_data_quality.TestGeneratedData.test_expected_scale) ... ok
+test_invoice_ids_are_unique (test_data_quality.TestGeneratedData.test_invoice_ids_are_unique) ... ok
+test_known_duplicate_customer_is_present_in_raw_data (test_data_quality.TestGeneratedData.test_known_duplicate_customer_is_present_in_raw_data) ... ok
+test_known_orphan_payment_is_present (test_data_quality.TestGeneratedData.test_known_orphan_payment_is_present) ... ok
+test_payment_ids_are_unique (test_data_quality.TestGeneratedData.test_payment_ids_are_unique) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.069s
+
+OK

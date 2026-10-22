@@ -1,0 +1,6 @@
+table_name,record_key,issue_type,description
+customers,C00018,duplicate_key,One customer row duplicated intentionally.
+customers,C00042,missing_value,Customer segment intentionally missing.
+customers,C00077,inconsistent_category,Region has trailing whitespace intentionally.
+invoices,INV000123,invalid_range,Invoice amount is negative intentionally.
+payments,PAY0004983,orphan_foreign_key,Payment references an invoice that does not exist.

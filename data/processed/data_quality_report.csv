@@ -1,0 +1,8 @@
+table,check,issue_count,note
+customers,duplicate customer_id rows,2,Inspect duplicate rows; do not automatically discard if attributes differ.
+customers,missing segment,1,Keep missing values visible until a documented imputation/business rule is agreed.
+customers,region whitespace,1,"Whitespace can be normalized, but retain a record of the transformation."
+invoices,non-positive invoice_amount,1,Investigate; do not assume a negative value is valid or invalid without business context.
+invoices,missing customer reference,0,Check referential integrity against customers.
+payments,non-positive payment_amount,0,Investigate refunds/adjustments separately if present.
+payments,orphan invoice reference,1,Payment invoice_id does not exist in invoices.
